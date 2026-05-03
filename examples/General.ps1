@@ -1,19 +1,16 @@
-﻿<#
+<#
   .SYNOPSIS
-    This is a general example of how to use the module.
+    This is a general example of how to use the Hcl module.
 #>
 
 # Import the module
-Import-Module -Name 'PSModule'
+Import-Module -Name 'Hcl'
 
-# Define the path to the font file
-$FontFilePath = 'C:\Fonts\CodeNewRoman\CodeNewRomanNerdFontPropo-Regular.tff'
-
-# Install the font
-Install-Font -Path $FontFilePath -Verbose
-
-# List installed fonts
-Get-Font -Name 'CodeNewRomanNerdFontPropo-Regular'
-
-# Uninstall the font
-Get-Font -Name 'CodeNewRomanNerdFontPropo-Regular' | Uninstall-Font -Verbose
+# Convert an HCL locals block to a PowerShell object
+$hcl = @'
+locals {
+  environment = "production"
+  region      = "us-east-1"
+}
+'@
+ConvertFrom-Hcl -InputObject $hcl
